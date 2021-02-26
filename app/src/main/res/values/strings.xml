@@ -1,4 +1,18 @@
 <resources>
-    <string name="app_name">My Application</string>
-    <string name="hello_string">Hello World!</string>
+    <string name="app_name">CS Words App</string>
+    <string name="registration_btn">Реєстрація</string>
+    <string name="login_btn">Увійти</string>
+
+    <string name="description">Додаток, що стане твоїм найкращим помічником при вивченні слів англійської мови</string>
+    <string name="descriptionLogin">Готові продовжити навчання?</string>
+    <string name="descriptionRegistration">Реєстрація нового користувача у системі</string>
+    <string name="bottom_line">Створено групою студентів КН | 2021</string>
+
+    <string name="email">Email</string>
+    <string name="name">Ім"я</string>
+    <string name="surname">Прізвище</string>
+    <string name="password">Пароль</string>
+    <string name="passwordConfirmation">Підтвердження паролю</string>
+    <string name="lostPassword">Забули пароль?</string>
+    <string name="haveAccount">Вже маєте аккаунт?</string>
 </resources>
