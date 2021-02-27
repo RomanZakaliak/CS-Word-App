@@ -19,6 +19,8 @@
         app:headerLayout="@layout/header"
         app:menu="@menu/main_menu"
 
+        app:itemTextColor="@color/dark_gray"
+        app:itemIconTint="@color/dark_blue"
         android:layout_gravity="start"
         />
 
@@ -36,12 +38,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/main_header_selector"
+                app:titleTextColor="@color/white"
+                app:theme="@style/ToolbarColoredIcon"
                 android:minHeight="?attr/actionBarSize"
-                android:theme="?attr/actionBarTheme"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:navigationIcon="@drawable/ic_baseline_menu_24" />
+                app:navigationIcon="@drawable/ic_baseline_menu_32" />
 
             <TextView
                 android:id="@+id/textView"

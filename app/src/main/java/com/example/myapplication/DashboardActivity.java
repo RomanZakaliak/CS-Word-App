@@ -2,11 +2,13 @@ package com.example.myapplication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -111,15 +113,33 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
                 Toast.makeText(this, "useful", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_logout:
-                FirebaseAuth.getInstance().signOut();
+                AlertDialog.Builder a_builder = new AlertDialog.Builder(DashboardActivity.this);
+                a_builder.setMessage("Ти дійсно бажаєш вийти з аккаунту?")
+                        .setCancelable(false)
+                        .setPositiveButton("Так", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                FirebaseAuth.getInstance().signOut();
 
-                GoogleSignIn.getClient(getBaseContext(),
-                        new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
-                ).signOut();
+                                GoogleSignIn.getClient(getBaseContext(),
+                                        new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
+                                ).signOut();
 
-                intent = new Intent(DashboardActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
+                                Intent intent = new Intent(DashboardActivity.this, LoginActivity.class);
+                                startActivity(intent);
+                                finish();;
+                            }
+                        })
+                        .setNegativeButton("Ні", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                navigationView.setCheckedItem(R.id.nav_home);
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alert = a_builder.create();
+                alert.setTitle("Вихід");
+                alert.show();
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
