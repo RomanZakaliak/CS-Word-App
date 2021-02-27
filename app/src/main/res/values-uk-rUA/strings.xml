@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_name">Language</string>
-    <string name="sign_out" translatable="false">Вийти з облікового запису</string>
-    <string name="name" translatable="false">Ім\'я</string>
-    <string name="email" translatable="false">Елeктронна пошта</string>
-    <string name="network_error" translatable="false">"Помилка з'єднання. Перевірте підключення до Інтернет. "</string>
-    <string name="sign_in_google" translatable="false">Увійти</string>
-</resources>

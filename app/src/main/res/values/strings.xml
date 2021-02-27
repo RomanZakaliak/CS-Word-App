@@ -2,6 +2,8 @@
     <string name="app_name">CS Words App</string>
     <string name="registration_btn">Реєстрація</string>
     <string name="login_btn">Увійти</string>
+    <string name="login_google_btn">Увійти через Google</string>
+    <string name="sign_out">Вийти</string>
 
     <string name="description">Додаток, що стане твоїм найкращим помічником при вивченні слів англійської мови</string>
     <string name="descriptionLogin">Готові продовжити навчання?</string>
@@ -15,4 +17,6 @@
     <string name="passwordConfirmation">Підтвердження паролю</string>
     <string name="lostPassword">Забули пароль?</string>
     <string name="haveAccount">Вже маєте аккаунт?</string>
+
+    <string name="network_error">Помилка. Перевірте підключення до Internet та спробуйте пізніше.</string>
 </resources>
