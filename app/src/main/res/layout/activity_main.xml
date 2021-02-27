@@ -55,9 +55,9 @@
       android:background="@drawable/custom_button"
 
       android:padding="8sp"
-      android:text="@string/login_btn"
+      android:text="@string/main_btn"
       android:textColor="@color/white"
-      android:textSize="18sp"
+      android:textSize="22sp"
       android:textStyle="bold"
       />
 

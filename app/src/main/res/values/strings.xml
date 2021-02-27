@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">CS Words App</string>
     <string name="registration_btn">Реєстрація</string>
-    <string name="login_btn">Увійти</string>
+    <string name="main_btn">Розпочати</string>
     <string name="login_google_btn">Увійти через Google</string>
     <string name="sign_out">Вийти</string>
 
     <string name="description">Додаток, що стане твоїм найкращим помічником при вивченні слів англійської мови</string>
-    <string name="descriptionLogin">Готові продовжити навчання?</string>
+    <string name="descriptionLogin">Готові вивчати Англійську мову?</string>
     <string name="descriptionRegistration">Реєстрація нового користувача у системі</string>
     <string name="bottom_line">Створено групою студентів КН | 2021</string>
 
@@ -19,4 +19,6 @@
     <string name="haveAccount">Вже маєте аккаунт?</string>
 
     <string name="network_error">Помилка. Перевірте підключення до Internet та спробуйте пізніше.</string>
+    <string name="navigation_drawer_open">navigation_drawer_open</string>
+    <string name="navigation_drawer_close">navigation_drawer_close</string>
 </resources>

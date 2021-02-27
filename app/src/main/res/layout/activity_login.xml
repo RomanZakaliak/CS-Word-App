@@ -50,6 +50,20 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
+        <Button
+            android:id="@+id/loginButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:drawableStart="@drawable/ic_google_icon"
+            android:background="@drawable/custom_button"
+            android:text="@string/login_google_btn"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/emailLogin"
             android:layout_marginTop="10dp"
@@ -82,19 +96,7 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/loginButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:drawableStart="@drawable/ic_google_icon"
-            android:background="@drawable/custom_button"
-            android:text="@string/login_google_btn"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+
 
         <LinearLayout
             android:visibility="invisible"
