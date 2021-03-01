@@ -90,14 +90,15 @@ public class WordsActivity extends AppCompatActivity {
                 Map<String, String> currItemData = new HashMap<String, String>(2);
                 currItemData.put("title", currentWord.getWord());
                 currItemData.put("subtitle", currentWord.getTranslations());
+                currItemData.put("usage", currentWord.getUsageExamples());
                 data.add(currItemData);
             }
 
             ListView wordsList = findViewById(R.id.words_list);
 
             SimpleAdapter adapter  = new SimpleAdapter(this, data, R.layout.word_item_layout,
-                                                        new String[] {"title", "subtitle"},
-                                                        new int[] {R.id.word_title, R.id.word_subtitle});
+                                                        new String[] {"title", "subtitle", "usage"},
+                                                        new int[] {R.id.word_title, R.id.word_subtitle, R.id.word_usage});
             wordsList.setAdapter(adapter);
 
         }
