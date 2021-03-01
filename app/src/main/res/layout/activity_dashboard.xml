@@ -21,8 +21,7 @@
 
         app:itemTextColor="@color/dark_gray"
         app:itemIconTint="@color/dark_blue"
-        android:layout_gravity="start"
-        />
+        android:layout_gravity="start" />
 
     <ScrollView
     android:layout_width="match_parent"

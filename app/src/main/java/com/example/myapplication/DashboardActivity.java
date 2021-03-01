@@ -104,7 +104,8 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             case R.id.nav_home:
                 break;
             case R.id.nav_words:
-                Toast.makeText(this, "words", Toast.LENGTH_SHORT).show();
+                Intent intentAddWord = new Intent(DashboardActivity.this, WordsActivity.class);
+                startActivity(intentAddWord);
                 break;
             case R.id.nav_rules:
                 Toast.makeText(this, "rules", Toast.LENGTH_SHORT).show();
