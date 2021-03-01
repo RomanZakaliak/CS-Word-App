@@ -11,8 +11,11 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="ToolbarColoredIcon" parent="Theme.MyApplication">
+    <style name="ToolbarTheme" parent="Theme.MyApplication">
         <item name="android:textColorSecondary">@color/white</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="colorAccent">@color/white</item>
     </style>
 
     <style name="myTextInputLabel" parent="Theme.MyApplication">
