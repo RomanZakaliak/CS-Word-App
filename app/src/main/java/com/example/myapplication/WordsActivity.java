@@ -108,11 +108,14 @@ public class WordsActivity extends AppCompatActivity {
         usageExample = findViewById(R.id.usage_example);
 
         String wordText = word.getEditText().getText().toString();
+        word.getEditText().getText().clear();
         String translationText = translation.getEditText().getText().toString();
+        translation.getEditText().getText().clear();
         String usageExampleText = usageExample.getEditText().getText().toString();
+        usageExample.getEditText().getText().clear();
 
         if(wordText.isEmpty() || translationText.isEmpty()){
-            Toast.makeText(this, "Слово та його переклад є обов'язковими", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.necessary_word_alert, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -123,6 +126,6 @@ public class WordsActivity extends AppCompatActivity {
             Log.d(TAG, e.getMessage(), e);
             return;
         }
-        Toast.makeText(this, "Слово збережене успішно!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.save_word_success, Toast.LENGTH_SHORT).show();
     }
 }
