@@ -3,11 +3,15 @@
     <style name="Theme.MyApplication" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/bg</item>
-        <item name="colorPrimaryDark">@color/dark_gray</item>
+        <item name="colorPrimaryDark">@color/bg</item>
         <item name="colorAccent">@color/blue</item>
 
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/darker_blue</item>
         <!-- Customize your theme here. -->
+    </style>
+
+    <style name="ToolbarColoredIcon" parent="Theme.MyApplication">
+        <item name="android:textColorSecondary">@color/white</item>
     </style>
 </resources>
