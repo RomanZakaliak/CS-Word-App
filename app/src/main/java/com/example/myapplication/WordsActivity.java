@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.example.myapplication.Data.Word;
@@ -18,8 +21,14 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class WordsActivity extends AppCompatActivity {
     private static String TAG = "WordActivity";
@@ -43,7 +52,19 @@ public class WordsActivity extends AppCompatActivity {
         currentUser = mAuth.getCurrentUser();
 
         database = FirebaseDatabase.getInstance(getResources().getString(R.string.realtime_db_reference));
-        userReference = database.getReference("users").child(currentUser.getUid().toString());
+        userReference = database.getReference("users").child(currentUser.getUid().toString()).child("words");
+
+        userReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                UpdateWordsList(snapshot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         saveWord = findViewById(R.id.save_word);
         saveWord.setOnClickListener(new View.OnClickListener() {
@@ -52,6 +73,33 @@ public class WordsActivity extends AppCompatActivity {
                 saveWordToDb();
             }
         });
+    }
+
+    private void UpdateWordsList(DataSnapshot snapshot) {
+        GenericTypeIndicator<HashMap<String, Word>> type = new GenericTypeIndicator<HashMap<String, Word>>() {};
+        HashMap<String, Word> hashMap = (HashMap<String, Word>) snapshot.getValue(type);
+        if( hashMap == null){
+            return;
+        } else{
+            ArrayList<Word> wordEtities = new ArrayList<Word>(hashMap.values());
+
+            List<Map<String, String>> data = new ArrayList<Map<String, String>>();
+
+            for (Word currentWord:wordEtities) {
+                Map<String, String> currItemData = new HashMap<String, String>(2);
+                currItemData.put("title", currentWord.getWord());
+                currItemData.put("subtitle", currentWord.getTranslations());
+                data.add(currItemData);
+            }
+
+            ListView wordsList = findViewById(R.id.words_list);
+
+            SimpleAdapter adapter  = new SimpleAdapter(this, data, R.layout.word_item_layout,
+                                                        new String[] {"title", "subtitle"},
+                                                        new int[] {R.id.word_title, R.id.word_subtitle});
+            wordsList.setAdapter(adapter);
+
+        }
     }
 
     private void saveWordToDb() {
@@ -67,26 +115,6 @@ public class WordsActivity extends AppCompatActivity {
             Toast.makeText(this, "Слово та його переклад є обов'язковими", Toast.LENGTH_SHORT).show();
             return;
         }
-
-        Query isWordExists = userReference.child(wordText).equalTo(wordText);
-        isWordExists.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists())
-                {
-                    String currWord = snapshot.child("word").getValue(String.class);
-                    Toast.makeText(WordsActivity.this, currWord, Toast.LENGTH_SHORT).show();
-                } else{
-
-                    Log.w(TAG, "snap" + snapshot.getValue(String.class));
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.w(TAG, "An error occured!");
-            }
-        });
 
         Word wordEntity = new Word(wordText, translationText, usageExampleText);
         try {

@@ -51,4 +51,10 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:text="зберегти слово"/>
 
+    <ListView
+        android:id="@+id/words_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/save_word"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
