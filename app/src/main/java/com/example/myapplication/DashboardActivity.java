@@ -115,7 +115,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
                 break;
             case R.id.nav_logout:
                 AlertDialog.Builder a_builder = new AlertDialog.Builder(DashboardActivity.this);
-                a_builder.setMessage("Ти дійсно бажаєш вийти з аккаунту?")
+                a_builder.setMessage("Ти дійсно бажаєш вийти з облікового запису?")
                         .setCancelable(false)
                         .setPositiveButton("Так", new DialogInterface.OnClickListener() {
                             @Override

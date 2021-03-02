@@ -1,6 +1,8 @@
 package com.example.myapplication.Adapters;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,9 +16,15 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 
+import com.example.myapplication.DashboardActivity;
 import com.example.myapplication.Data.Word;
+import com.example.myapplication.LoginActivity;
 import com.example.myapplication.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.List;
@@ -59,7 +67,26 @@ public class WordsListAdapter extends ArrayAdapter<Word> {
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()){
                             case R.id.delete_word:
-                                userWordsReference.child(word.getWord()).removeValue();
+                                AlertDialog.Builder a_builder = new AlertDialog.Builder(context);
+                                a_builder.setMessage("Ти дійсно бажаєш видалити це слово?")
+                                        .setCancelable(false)
+                                        .setPositiveButton("Так", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                userWordsReference.child(word.getWord()).removeValue();
+                                                WordsListAdapter.this.remove(word);
+                                                WordsListAdapter.this.notifyDataSetChanged();
+                                            }
+                                        })
+                                        .setNegativeButton("Ні", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.cancel();
+                                            }
+                                        });
+                                AlertDialog alert = a_builder.create();
+                                alert.setTitle("Вихід");
+                                alert.show();
                                 break;
                         }
                         return false;
