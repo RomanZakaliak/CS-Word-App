@@ -6,15 +6,24 @@
     android:orientation="vertical"
     android:paddingTop="5dp"
     android:paddingBottom="5dp"
-    android:paddingStart="10dp"
     android:paddingEnd="10dp"
     android:maxHeight="60dp">
+
+    <View
+        android:layout_width="10dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/word_item_rectangle"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
         android:id="@+id/word_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="5dp"
+        android:paddingStart="15dp"
         android:text="Sample Title"
         android:textSize="20dp"
         android:maxLines="1"
@@ -27,7 +36,7 @@
         android:id="@+id/word_subtitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
+        android:paddingStart="15dp"
         android:text="Sample subtitle"
         android:layout_marginEnd="5dp"
         android:maxLines="1"
