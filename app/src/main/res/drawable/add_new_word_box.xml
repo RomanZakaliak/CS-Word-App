@@ -12,10 +12,9 @@
         android:width="80dp"
         android:height="80dp"/>
     <corners
-        android:radius="20dp"
-        android:topRightRadius="20dp"
-        android:bottomRightRadius="20dp"
-        android:bottomLeftRadius="20dp" />
-
+        android:radius="10dp"
+        android:topRightRadius="10dp"
+        android:bottomRightRadius="10dp"
+        android:bottomLeftRadius="10dp" />
 
 </shape>

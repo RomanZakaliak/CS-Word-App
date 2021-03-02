@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.Adapters.WordsListAdapter;
 import com.example.myapplication.Data.Word;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,6 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -84,22 +86,10 @@ public class WordsActivity extends AppCompatActivity {
         } else{
             ArrayList<Word> wordEtities = new ArrayList<Word>(hashMap.values());
 
-            List<Map<String, String>> data = new ArrayList<Map<String, String>>();
-
-            for (Word currentWord:wordEtities) {
-                Map<String, String> currItemData = new HashMap<String, String>(2);
-                currItemData.put("title", currentWord.getWord());
-                currItemData.put("subtitle", currentWord.getTranslations());
-                currItemData.put("usage", currentWord.getUsageExamples());
-                data.add(currItemData);
-            }
-
             ListView wordsList = findViewById(R.id.words_list);
 
-            SimpleAdapter adapter  = new SimpleAdapter(this, data, R.layout.word_item_layout,
-                                                        new String[] {"title", "subtitle", "usage"},
-                                                        new int[] {R.id.word_title, R.id.word_subtitle, R.id.word_usage});
-            wordsList.setAdapter(adapter);
+            WordsListAdapter wordsListAdapter = new WordsListAdapter(this, R.layout.word_item_layout, wordEtities, userReference);
+            wordsList.setAdapter(wordsListAdapter);
 
         }
     }
@@ -122,8 +112,37 @@ public class WordsActivity extends AppCompatActivity {
         }
 
         Word wordEntity = new Word(wordText, translationText, usageExampleText);
+
+        Query wordData = userReference.child(wordEntity.getWord());
         try {
-            userReference.child(wordText).setValue(wordEntity);
+            wordData.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot != null){
+                        Word thisWord = snapshot.getValue(Word.class);
+
+                        if( thisWord == null){
+                            userReference.child(wordEntity.getWord()).setValue(wordEntity);
+                            return;
+                        }
+
+                        if(!thisWord.getTranslations().contains(wordEntity.getTranslations())){
+                            String updatedTranslation = thisWord.getTranslations() +"\n" +wordEntity.getTranslations();
+                            userReference.child(wordEntity.getWord()).child("translations").setValue(updatedTranslation);
+                        }
+
+                        if(!thisWord.getUsageExamples().contains(wordEntity.getUsageExamples()) || thisWord.getUsageExamples().isEmpty()){
+                            String updatedUsageExamples = wordEntity.getUsageExamples() +"\n" + thisWord.getUsageExamples();
+                            userReference.child(wordEntity.getWord()).child("usageExamples").setValue(updatedUsageExamples);
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.w(TAG, error.getMessage());
+                }
+            });
         } catch (Exception e){
             Log.d(TAG, e.getMessage(), e);
             return;
