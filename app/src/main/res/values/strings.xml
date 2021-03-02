@@ -11,7 +11,7 @@
     <string name="bottom_line">Створено групою студентів КН | 2021</string>
 
     <string name="email">Email</string>
-    <string name="name">Ім"я</string>
+    <string name="name">Ім\'я</string>
     <string name="surname">Прізвище</string>
     <string name="password">Пароль</string>
     <string name="passwordConfirmation">Підтвердження паролю</string>
@@ -19,6 +19,18 @@
     <string name="haveAccount">Вже маєте аккаунт?</string>
 
     <string name="network_error">Помилка. Перевірте підключення до Internet та спробуйте пізніше.</string>
+    <string name="google_login_error">Помилка авторизації. Перевірте ваше з\'єднання</string>
     <string name="navigation_drawer_open">navigation_drawer_open</string>
     <string name="navigation_drawer_close">navigation_drawer_close</string>
+
+    <string name="necessary_word_alert">Слово та його переклад є обов\'язковими полями.</string>
+    <string name="save_word_success">Слово успішно збережено!</string>
+
+
+    <string name="word_example">Приклад використання</string>
+    <string name="word_translation">Переклад</string>
+    <string name="word">Слово</string>
+    <string name="word_save_btn">Додати слово</string>
+
+
 </resources>
