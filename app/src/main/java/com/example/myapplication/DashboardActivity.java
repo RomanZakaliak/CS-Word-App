@@ -29,10 +29,8 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     private FirebaseAuth mAuth;
 
     private ImageView profileImage;
-    private TextView idTxt;
     private TextView nameTxt;
     private TextView emailTxt;
-    private Button btnSignOut;
 
 
     private DrawerLayout drawerLayout;
@@ -105,7 +103,9 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
                 break;
             case R.id.nav_words:
                 Intent intentAddWord = new Intent(DashboardActivity.this, WordsActivity.class);
+                navigationView.setCheckedItem(R.id.nav_home);
                 startActivity(intentAddWord);
+
                 break;
             case R.id.nav_rules:
                 Toast.makeText(this, "rules", Toast.LENGTH_SHORT).show();

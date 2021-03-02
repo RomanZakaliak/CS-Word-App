@@ -85,7 +85,7 @@ public class WordsListAdapter extends ArrayAdapter<Word> {
                                             }
                                         });
                                 AlertDialog alert = a_builder.create();
-                                alert.setTitle("Вихід");
+                                alert.setTitle("Видалення слова");
                                 alert.show();
                                 break;
                         }
