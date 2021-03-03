@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -17,6 +18,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.myapplication.Adapters.WordsListAdapter;
 import com.example.myapplication.Data.Word;
@@ -62,15 +66,8 @@ public class WordsActivity extends AppCompatActivity {
         toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_32);
         toolbar.setTitle("Мої слова");
 
-        
+        initFirebase();
 
-
-
-        mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
-
-        database = FirebaseDatabase.getInstance(getResources().getString(R.string.realtime_db_reference));
-        userReference = database.getReference("users").child(currentUser.getUid().toString()).child("words");
 
         userReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -92,6 +89,14 @@ public class WordsActivity extends AppCompatActivity {
                 saveWordToDb();
             }
         });
+    }
+
+    private void initFirebase(){
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+
+        database = FirebaseDatabase.getInstance(getResources().getString(R.string.realtime_db_reference));
+        userReference = database.getReference("users").child(currentUser.getUid().toString()).child("words");
     }
 
     private void UpdateWordsList(DataSnapshot snapshot) {

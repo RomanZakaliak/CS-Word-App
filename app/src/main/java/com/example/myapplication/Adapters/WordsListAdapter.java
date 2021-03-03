@@ -1,5 +1,7 @@
 package com.example.myapplication.Adapters;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,11 +19,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.DashboardActivity;
 import com.example.myapplication.Data.Word;
 import com.example.myapplication.LoginActivity;
 import com.example.myapplication.R;
+import com.example.myapplication.ShowWordFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -87,6 +91,17 @@ public class WordsListAdapter extends ArrayAdapter<Word> {
                                 AlertDialog alert = a_builder.create();
                                 alert.setTitle("Видалення слова");
                                 alert.show();
+                                break;
+                            case R.id.show_word_details:
+                                FragmentTransaction ft = ((AppCompatActivity)context).getFragmentManager().beginTransaction();
+                                Fragment previous = ((AppCompatActivity)context).getFragmentManager().findFragmentByTag("details");
+
+                                if(previous != null){
+                                    ft.remove(previous);
+                                }
+                                ShowWordFragment showWord = ShowWordFragment.newInstance(word.getWord(),
+                                        word.getTranslations(), word.getUsageExamples());
+                                showWord.show(ft, "details");
                                 break;
                         }
                         return false;
