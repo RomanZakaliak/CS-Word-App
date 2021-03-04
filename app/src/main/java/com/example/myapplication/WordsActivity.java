@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -12,9 +13,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.example.myapplication.Adapters.WordsListAdapter;
 import com.example.myapplication.Data.Word;
@@ -56,8 +59,16 @@ public class WordsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_words);
 
         toolbar = (Toolbar)findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_32);
+        //toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_32);
         toolbar.setTitle("Мої слова");
+        setSupportActionBar(toolbar);
+
+        Drawable backArrow = ResourcesCompat.getDrawable(this.getResources(), R.drawable.ic_baseline_arrow_back_32, null);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(backArrow);
 
         initFirebase();
 
@@ -82,9 +93,7 @@ public class WordsActivity extends AppCompatActivity {
     private void initFirebase(){
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
-
         database = FirebaseDatabase.getInstance(getResources().getString(R.string.realtime_db_reference));
-        database.setPersistenceEnabled(true);
         userReference = database.getReference("users").child(currentUser.getUid().toString()).child("words");
         userReference.keepSynced(true);
     }

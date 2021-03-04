@@ -91,7 +91,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
     }
 
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
@@ -104,7 +103,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
                 Intent intentAddWord = new Intent(DashboardActivity.this, WordsActivity.class);
                 navigationView.setCheckedItem(R.id.nav_home);
                 startActivity(intentAddWord);
-
                 break;
             case R.id.nav_rules:
                 Toast.makeText(this, "rules", Toast.LENGTH_SHORT).show();

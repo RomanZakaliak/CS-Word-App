@@ -17,32 +17,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxLines="1"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        android:text="Placeholder"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/word_translation"
         android:textSize="20dp"/>
+
     <TextView
         android:id="@+id/translation_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxLines="5"
-        android:scrollbars="vertical"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        android:text="Placeholder"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/word_example"
         android:textSize="20dp"/>
+
     <TextView
         android:id="@+id/usage_example_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxLines="5"
-        android:scrollbars="vertical"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        android:text="Placeholder"/>
 
 </LinearLayout>

@@ -11,9 +11,12 @@ import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class MainActivity extends AppCompatActivity {
+
+    private FirebaseDatabase database;
 
     private final static int SECOND = 1000;
     private final static int MINUTE = 60 * SECOND;
@@ -33,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
         registerInactivityNotification();
 
         tryLogin();
+
+        database = FirebaseDatabase.getInstance(getResources().getString(R.string.realtime_db_reference));
+        database.setPersistenceEnabled(true);
     }
 
     private void registerInactivityNotification() {
