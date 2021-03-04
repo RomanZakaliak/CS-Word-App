@@ -2,8 +2,12 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +18,13 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
+    private final static int SECOND = 1000;
+    private final static int MINUTE = 60 * SECOND;
+    private final static int HOUR = 60 * MINUTE;
+    private final static int DAY = 24 * HOUR;
+
+    private final static int delay = 2 * DAY;
+
     private Button btnLogin, btnRegistration;
     private FirebaseAuth  mAuth;
 
@@ -22,9 +33,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        registerInactivityNotification();
 
         tryLogin();
     }
+
+    private void registerInactivityNotification() {
+        Intent notificationIntent = new Intent(getApplicationContext(), InactivityNotification.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.setExact(AlarmManager.RTC,System.currentTimeMillis() + delay, pendingIntent);
+    }
+
 
     private void tryLogin(){
         mAuth = FirebaseAuth.getInstance();

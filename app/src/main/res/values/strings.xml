@@ -32,4 +32,6 @@
     <string name="word">Слово</string>
     <string name="word_save_btn">Додати слово</string>
 
+    <string name="notification_inactive_title">Вас довго не було!</string>
+    <string name="notification_inactive_context">Може саме час зайнятись англійською? :-)</string>
 </resources>
