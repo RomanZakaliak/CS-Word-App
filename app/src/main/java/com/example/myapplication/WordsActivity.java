@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -9,11 +10,14 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.example.myapplication.Adapters.WordsListAdapter;
 import com.example.myapplication.Data.Word;
@@ -30,11 +34,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class WordsActivity extends AppCompatActivity {
-    private static String TAG = "WordActivity";
+    private final static String TAG = "WordActivity";
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
 
@@ -46,16 +49,29 @@ public class WordsActivity extends AppCompatActivity {
     private TextInputLayout translation;
     private TextInputLayout usageExample;
 
+    private Toolbar toolbar;
+    private ActionBarDrawerToggle toggle;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_words);
 
-        mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        //toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_32);
+        toolbar.setTitle("Мої слова");
+        setSupportActionBar(toolbar);
 
-        database = FirebaseDatabase.getInstance(getResources().getString(R.string.realtime_db_reference));
-        userReference = database.getReference("users").child(currentUser.getUid().toString()).child("words");
+        Drawable backArrow = ResourcesCompat.getDrawable(this.getResources(), R.drawable.ic_baseline_arrow_back_32, null);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(backArrow);
+
+        initFirebase();
+
 
         userReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -67,15 +83,19 @@ public class WordsActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
+
         });
 
         saveWord = findViewById(R.id.save_word);
-        saveWord.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveWordToDb();
-            }
-        });
+        saveWord.setOnClickListener(v -> saveWordToDb());
+    }
+
+    private void initFirebase(){
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+        database = FirebaseDatabase.getInstance(getResources().getString(R.string.realtime_db_reference));
+        userReference = database.getReference("users").child(currentUser.getUid().toString()).child("words");
+        userReference.keepSynced(true);
     }
 
     private void UpdateWordsList(DataSnapshot snapshot) {
@@ -84,7 +104,7 @@ public class WordsActivity extends AppCompatActivity {
         if( hashMap == null){
             return;
         } else{
-            ArrayList<Word> wordEtities = new ArrayList<Word>(hashMap.values());
+            ArrayList<Word> wordEtities = new ArrayList<>(hashMap.values());
 
             ListView wordsList = findViewById(R.id.words_list);
 

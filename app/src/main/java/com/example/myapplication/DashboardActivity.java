@@ -12,7 +12,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,21 +24,18 @@ import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 
+@SuppressWarnings("FieldCanBeLocal")
 public class DashboardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private FirebaseAuth mAuth;
 
     private ImageView profileImage;
-    private TextView idTxt;
     private TextView nameTxt;
     private TextView emailTxt;
-    private Button btnSignOut;
 
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +65,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         navigationView.setCheckedItem(R.id.nav_home);
     }
 
+
     private void showUserData(FirebaseUser currentUser){
         navigationView = findViewById(R.id.nav_view);
 
@@ -94,7 +91,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
     }
 
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
@@ -105,6 +101,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
                 break;
             case R.id.nav_words:
                 Intent intentAddWord = new Intent(DashboardActivity.this, WordsActivity.class);
+                navigationView.setCheckedItem(R.id.nav_home);
                 startActivity(intentAddWord);
                 break;
             case R.id.nav_rules:
@@ -117,26 +114,20 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
                 AlertDialog.Builder a_builder = new AlertDialog.Builder(DashboardActivity.this);
                 a_builder.setMessage("Ти дійсно бажаєш вийти з облікового запису?")
                         .setCancelable(false)
-                        .setPositiveButton("Так", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                FirebaseAuth.getInstance().signOut();
+                        .setPositiveButton("Так", (dialog, which) -> {
+                            FirebaseAuth.getInstance().signOut();
 
-                                GoogleSignIn.getClient(getBaseContext(),
-                                        new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
-                                ).signOut();
+                            GoogleSignIn.getClient(getBaseContext(),
+                                    new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
+                            ).signOut();
 
-                                Intent intent = new Intent(DashboardActivity.this, LoginActivity.class);
-                                startActivity(intent);
-                                finish();;
-                            }
+                            Intent intent1 = new Intent(DashboardActivity.this, LoginActivity.class);
+                            startActivity(intent1);
+                            finish();;
                         })
-                        .setNegativeButton("Ні", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                navigationView.setCheckedItem(R.id.nav_home);
-                                dialog.cancel();
-                            }
+                        .setNegativeButton("Ні", (dialog, which) -> {
+                            navigationView.setCheckedItem(R.id.nav_home);
+                            dialog.cancel();
                         });
                 AlertDialog alert = a_builder.create();
                 alert.setTitle("Вихід");

@@ -14,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_marginTop="40dp"
-        app:srcCompat="@drawable/icon" />
+        app:srcCompat="@drawable/icon"
+        android:contentDescription="TODO" />
 
     <TextView
         android:id="@+id/headerLogin"
