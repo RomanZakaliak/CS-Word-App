@@ -10,7 +10,7 @@
     android:maxHeight="60dp">
 
     <View
-        android:id="@+id/plag"
+        android:id="@+id/plug"
         android:layout_width="10dp"
         android:layout_height="match_parent"
         android:background="@drawable/word_item_rectangle"
@@ -35,7 +35,7 @@
         android:maxLines="1"
         app:layout_constraintBottom_toTopOf="@+id/word_subtitle"
         app:layout_constraintRight_toLeftOf="@+id/btn_show_popup_menu"
-        app:layout_constraintLeft_toRightOf="@+id/plag"
+        app:layout_constraintLeft_toRightOf="@+id/plug"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -47,7 +47,7 @@
         android:layout_marginEnd="5dp"
         android:maxLines="1"
         app:layout_constraintRight_toLeftOf="@+id/btn_show_popup_menu"
-        app:layout_constraintLeft_toRightOf="@+id/plag"
+        app:layout_constraintLeft_toRightOf="@+id/plug"
         app:layout_constraintTop_toBottomOf="@+id/word_title"/>
 
     <ImageButton

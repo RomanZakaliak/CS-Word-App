@@ -5,22 +5,13 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +24,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 
+@SuppressWarnings("FieldCanBeLocal")
 public class DashboardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private FirebaseAuth mAuth;
 
@@ -124,26 +116,20 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
                 AlertDialog.Builder a_builder = new AlertDialog.Builder(DashboardActivity.this);
                 a_builder.setMessage("Ти дійсно бажаєш вийти з облікового запису?")
                         .setCancelable(false)
-                        .setPositiveButton("Так", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                FirebaseAuth.getInstance().signOut();
+                        .setPositiveButton("Так", (dialog, which) -> {
+                            FirebaseAuth.getInstance().signOut();
 
-                                GoogleSignIn.getClient(getBaseContext(),
-                                        new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
-                                ).signOut();
+                            GoogleSignIn.getClient(getBaseContext(),
+                                    new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
+                            ).signOut();
 
-                                Intent intent = new Intent(DashboardActivity.this, LoginActivity.class);
-                                startActivity(intent);
-                                finish();;
-                            }
+                            Intent intent1 = new Intent(DashboardActivity.this, LoginActivity.class);
+                            startActivity(intent1);
+                            finish();;
                         })
-                        .setNegativeButton("Ні", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                navigationView.setCheckedItem(R.id.nav_home);
-                                dialog.cancel();
-                            }
+                        .setNegativeButton("Ні", (dialog, which) -> {
+                            navigationView.setCheckedItem(R.id.nav_home);
+                            dialog.cancel();
                         });
                 AlertDialog alert = a_builder.create();
                 alert.setTitle("Вихід");

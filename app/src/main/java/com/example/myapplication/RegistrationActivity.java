@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class RegistrationActivity extends AppCompatActivity {
 
     private Button btnRegistration;
@@ -28,23 +29,17 @@ public class RegistrationActivity extends AppCompatActivity {
         btnRegistration = (Button)findViewById(R.id.registrationButton);
 
         btnRegistration.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(RegistrationActivity.this, DashboardActivity.class);
-                        startActivity(intent);
-                    }
+                v -> {
+                    Intent intent = new Intent(RegistrationActivity.this, DashboardActivity.class);
+                    startActivity(intent);
                 }
         );
 
         btnTextLogin = (TextView) findViewById(R.id.loginRegistration);
         btnTextLogin.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
-                        startActivity(intent);
-                    }
+                v -> {
+                    Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+                    startActivity(intent);
                 }
         );
     }

@@ -1,26 +1,20 @@
 package com.example.myapplication;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.myapplication.Adapters.WordsListAdapter;
 import com.example.myapplication.Data.Word;
@@ -37,11 +31,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class WordsActivity extends AppCompatActivity {
-    private static String TAG = "WordActivity";
+    private final static String TAG = "WordActivity";
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
 
@@ -83,12 +76,7 @@ public class WordsActivity extends AppCompatActivity {
         });
 
         saveWord = findViewById(R.id.save_word);
-        saveWord.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveWordToDb();
-            }
-        });
+        saveWord.setOnClickListener(v -> saveWordToDb());
     }
 
     private void initFirebase(){
@@ -105,7 +93,7 @@ public class WordsActivity extends AppCompatActivity {
         if( hashMap == null){
             return;
         } else{
-            ArrayList<Word> wordEtities = new ArrayList<Word>(hashMap.values());
+            ArrayList<Word> wordEtities = new ArrayList<>(hashMap.values());
 
             ListView wordsList = findViewById(R.id.words_list);
 

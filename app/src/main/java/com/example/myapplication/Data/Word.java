@@ -2,8 +2,6 @@ package com.example.myapplication.Data;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
-import java.util.List;
-
 @IgnoreExtraProperties
 public class Word {
     private String word;
