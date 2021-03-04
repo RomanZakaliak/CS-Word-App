@@ -84,7 +84,9 @@ public class WordsActivity extends AppCompatActivity {
         currentUser = mAuth.getCurrentUser();
 
         database = FirebaseDatabase.getInstance(getResources().getString(R.string.realtime_db_reference));
+        database.setPersistenceEnabled(true);
         userReference = database.getReference("users").child(currentUser.getUid().toString()).child("words");
+        userReference.keepSynced(true);
     }
 
     private void UpdateWordsList(DataSnapshot snapshot) {
