@@ -3,7 +3,6 @@ package com.example.myapplication;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -11,19 +10,24 @@ import android.os.Build;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-public class InactivityNotification extends BroadcastReceiver {
+public class NotificationProvider {
 
-    private final static String CHANNEL_ID = "INACTIVITY";
-
+    private String CHANNEL_ID = "Default";
+    private String Title = "CS Word App";
+    private String Message = "";
+    private String CHANNEL_NAME = "Default";
+    private int notificationId = (int)(Math.random() * (10 - 1 + 1) + 1);
     private Context context;
 
-    @Override
-    public void onReceive(Context context, Intent intent) {
+    public NotificationProvider(String CHANNEL_ID, String Title, String Message, String CHANNEL_NAME, Context context){
+        this.CHANNEL_ID = CHANNEL_ID;
+        this.CHANNEL_NAME = CHANNEL_NAME;
+        this.Title = Title;
+        this.Message = Message;
         this.context = context;
-        showNotification();
     }
 
-    private void showNotification() {
+    public void showNotification() {
         createNotificationChannel();
 
         Intent intent = new Intent(context, MainActivity.class);
@@ -32,25 +36,24 @@ public class InactivityNotification extends BroadcastReceiver {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notify_small_icon)
-                .setContentTitle(context.getResources().getString(R.string.notification_inactive_title))
-                .setContentText(context.getResources().getString(R.string.notification_inactive_context))
+                .setContentTitle(Title)
+                .setContentText(Message)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true);
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
 
-        notificationManager.notify(0, builder.build());
+        notificationManager.notify(notificationId, builder.build());
     }
 
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "InactivityNotifications", importance);
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, importance);
             channel.setDescription("text");
             NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
     }
-
 }

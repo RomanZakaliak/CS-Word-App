@@ -34,4 +34,10 @@
 
     <string name="notification_inactive_title">Вас довго не було!</string>
     <string name="notification_inactive_context">Може саме час зайнятись англійською? :-)</string>
+
+    <string name="remind_title_hint">Заголовок нагадування</string>
+    <string name="remind_message_hint">Повідомлення нагадування</string>
+
+    <string name="remind_default_title">Привіт!</string>
+    <string name="remind_default_message">Саме час зайнятися вивченням англійської!</string>
 </resources>
