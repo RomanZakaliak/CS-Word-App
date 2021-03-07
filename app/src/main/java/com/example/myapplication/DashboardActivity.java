@@ -103,18 +103,22 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             case R.id.nav_words:
                 Intent intentAddWord = new Intent(DashboardActivity.this, WordsActivity.class);
                 startActivity(intentAddWord);
-                navigationView.setCheckedItem(R.id.nav_words);
                 break;
             case R.id.nav_rules:
                 Toast.makeText(this, "rules", Toast.LENGTH_SHORT).show();
+                Intent intentRules = new Intent(DashboardActivity.this, RulesActivity.class);
+                navigationView.setCheckedItem(R.id.nav_home);
+                startActivity(intentRules);
+
                 break;
             case R.id.nav_useful:
                 Toast.makeText(this, "useful", Toast.LENGTH_SHORT).show();
+                navigationView.setCheckedItem(R.id.nav_home);
                 break;
             case R.id.nav_reminder:
                 Intent intentReminder = new Intent(DashboardActivity.this, ReminderActivity.class);
+                navigationView.setCheckedItem(R.id.nav_home);
                 startActivity(intentReminder);
-                navigationView.setCheckedItem(R.id.nav_reminder);
                 break;
             case R.id.nav_logout:
                 AlertDialog.Builder a_builder = new AlertDialog.Builder(DashboardActivity.this);

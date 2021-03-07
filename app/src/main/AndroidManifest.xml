@@ -12,8 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
+            android:name=".RulesActivity"
+            android:label="@string/title_activity_rules"
+            android:parentActivityName=".DashboardActivity"
+            android:theme="@style/Theme.MyApplication.NoActionBar"></activity>
+        <activity
             android:name=".ReminderActivity"
-            android:parentActivityName=".DashboardActivity"/>
+            android:parentActivityName=".DashboardActivity" />
         <activity
             android:name=".WordsActivity"
             android:parentActivityName=".DashboardActivity" />

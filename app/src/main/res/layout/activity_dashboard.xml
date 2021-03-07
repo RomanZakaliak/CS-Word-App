@@ -22,24 +22,11 @@
 
         <!-- The main content view where fragments are loaded -->
         <FrameLayout
-            android:id="@+id/flContent"
+            android:id="@+id/fragmentContent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
-
-<!--    <androidx.appcompat.widget.Toolbar-->
-<!--        android:id="@+id/toolbar"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:background="@drawable/main_header_selector"-->
-<!--        app:titleTextColor="@color/white"-->
-<!--        app:theme="@style/ToolbarColoredIcon"-->
-<!--        android:minHeight="?attr/actionBarSize"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:navigationIcon="@drawable/ic_baseline_menu_32" />-->
 
 
 
