@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private final static int HOUR = 60 * MINUTE;
     private final static int DAY = 24 * HOUR;
 
-    private final static int delay = 2 * SECOND;
+    private final static int delay = 2 * DAY;
 
     private Button btnLogin, btnRegistration;
     private FirebaseAuth  mAuth;

@@ -21,6 +21,7 @@ import android.widget.Switch;
 import android.widget.TimePicker;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Calendar;
 
@@ -30,16 +31,16 @@ public class ReminderActivity extends AppCompatActivity {
 
     private TimePicker reminderTimePicker;
     private Toolbar toolbar;
-    private TextInputEditText reminderTitle;
-    private TextInputEditText reminderMessage;
+
     private Switch reminderSwitch;
+
 
     private final static int SECOND = 1000;
     private final static int MINUTE = 60 * SECOND;
     private final static int HOUR = 60 * MINUTE;
     private final static int DAY = 24 * HOUR;
 
-    private final static int delay =  MINUTE ;
+    private final static int delay =  30 * SECOND ;
 
 
     @Override
@@ -55,21 +56,19 @@ public class ReminderActivity extends AppCompatActivity {
 
         reminderSwitch = findViewById(R.id.remind_switch);
 
-        boolean isAlarmUp = (PendingIntent.getBroadcast(this, 0, new Intent(this,
-                RemindBroadcaster.class), PendingIntent.FLAG_UPDATE_CURRENT)) != null;
+        Intent reminderIntent = setupReminderIntent();
+        PendingIntent runningIntent = PendingIntent.getBroadcast(this, 0, reminderIntent, PendingIntent.FLAG_NO_CREATE);
+        boolean isAlarmUp = runningIntent != null;
 
         reminderSwitch.setChecked(isAlarmUp);
 
-        reminderTitle = findViewById(R.id.remind_title);
-        reminderMessage = findViewById(R.id.remind_message);
-
-        Intent reminderIntent = setupReminderIntent();
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
         reminderSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
+
                     Calendar calendar = setupCalendar();
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(ReminderActivity.this, 0,
                             reminderIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -79,8 +78,9 @@ public class ReminderActivity extends AppCompatActivity {
                 } else{
                     if(alarmManager != null){
                         PendingIntent pendingIntent = PendingIntent.getBroadcast(ReminderActivity.this, 0,
-                                reminderIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                                reminderIntent, PendingIntent.FLAG_CANCEL_CURRENT);
                         alarmManager.cancel(pendingIntent);
+                        pendingIntent.cancel();
                         Log.w(TAG, alarmManager.toString());
                     }
                 }
@@ -114,8 +114,8 @@ public class ReminderActivity extends AppCompatActivity {
         Intent reminderIntent = new Intent(getApplicationContext(), RemindBroadcaster.class);
         reminderIntent.putExtra("CHANNEL_ID", "REMINDER");
         reminderIntent.putExtra("CHANNEL_NAME", "Reminder");
-        reminderIntent.putExtra("TITLE", "Placeholder");
-        reminderIntent.putExtra("MESSAGE", "Placeholder");
+        reminderIntent.putExtra("TITLE", getResources().getString(R.string.remind_default_title));
+        reminderIntent.putExtra("MESSAGE", getResources().getString(R.string.remind_default_message));
         return  reminderIntent;
     }
 
