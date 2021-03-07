@@ -45,6 +45,9 @@
     <string name="tab_text_1">Артикль</string>
     <string name="tab_text_2">Іменник</string>
     <string name="tab_text_3">Прикметник</string>
+    <string name="tab_text_4">Прислівник</string>
+    <string name="tab_text_5">Дієслово</string>
+    <string name="tab_text_6">Умовні речення</string>
 
 
 </resources>

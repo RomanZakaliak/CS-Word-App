@@ -8,6 +8,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.example.myapplication.FragmentRule1;
+import com.example.myapplication.FragmentRule2;
+import com.example.myapplication.FragmentRule3;
+import com.example.myapplication.FragmentRule4;
+import com.example.myapplication.FragmentRule5;
+import com.example.myapplication.FragmentRule6;
 import com.example.myapplication.R;
 
 /**
@@ -17,7 +23,7 @@ import com.example.myapplication.R;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_3};
+    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_3, R.string.tab_text_4, R.string.tab_text_5,  R.string.tab_text_6};
     private final Context mContext;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
@@ -27,9 +33,28 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        // getItem is called to instantiate the fragment for the given page.
-        // Return a PlaceholderFragment (defined as a static inner class below).
-        return PlaceholderFragment.newInstance(position + 1);
+        Fragment fragment = null;
+        switch (position){
+            case 0:
+                fragment = new FragmentRule1();
+                break;
+            case 1:
+                fragment = new FragmentRule2();
+                break;
+            case 2:
+                fragment = new FragmentRule3();
+                break;
+            case 3:
+                fragment = new FragmentRule4();
+                break;
+            case 4:
+                fragment = new FragmentRule5();
+                break;
+            case 5:
+                fragment = new FragmentRule6();
+                break;
+        }
+        return fragment;
     }
 
     @Nullable
@@ -40,7 +65,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        // Show 2 total pages.
-        return 2;
+        // Show n total pages.
+        return 6;
     }
 }
