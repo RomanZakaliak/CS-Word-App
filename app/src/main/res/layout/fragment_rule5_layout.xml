@@ -4,12 +4,16 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
+    android:layout_margin="12dp"
+    android:padding="8dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="555555"
+        android:layout_marginBottom="8dp"
+        android:text="Дієслово (Verb) – це самостійна частина мови, що виражає певну дію предмета або особи або ж стан, в якому вони знаходяться. Дієслова відповідають на питання «що робити?», «що зробити?».
+
+Дієслова англійської мови змінюють свою форму в залежності від особи (I, You, He тощо), числа (множина або однина), часу в реченні."
         android:textStyle="bold"
         android:textSize="20sp"/>
 
