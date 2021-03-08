@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="12dp"
+    android:padding="8dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Прислівник (Adverb) – це самостійна частина мови, що вказує на певну ознаку дії, ознаку іншої ознаки або обставини, в яких відбувається дія.  В більшості випадків прислівники означують дієслова, але вони також вживаються з прикметниками або іншими прислівниками. Вони відповідають на питання  «як?», «куди?», «де?», «коли?» тощо і в реченні виступають в якості обставини."
+        android:textStyle="bold"
+        android:textSize="20sp"/>
+
+</LinearLayout>

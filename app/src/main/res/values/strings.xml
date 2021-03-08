@@ -32,6 +32,21 @@
     <string name="word">Слово</string>
     <string name="word_save_btn">Додати слово</string>
 
-    <string name="notification_inactive_title">Вас довго не було!</string>
-    <string name="notification_inactive_context">Може саме час зайнятись англійською? :-)</string>
+    <string name="notification_inactive_title">Тебе довго не було!</string>
+    <string name="notification_inactive_context">Можливо, саме час зайнятись англійською? :)</string>
+
+    <string name="remind_title_hint">Заголовок нагадування</string>
+    <string name="remind_message_hint">Повідомлення нагадування</string>
+
+    <string name="remind_default_title">Привітик!</string>
+    <string name="remind_default_message">Саме час зайнятися вивченням англійської мови!</string>
+
+    <string name="title_activity_rules">RulesActivity</string>
+    <string name="tab_text_1">Артикль</string>
+    <string name="tab_text_2">Іменник</string>
+    <string name="tab_text_3">Прикметник</string>
+    <string name="tab_text_4">Прислівник</string>
+    <string name="tab_text_5">Дієслово</string>
+    <string name="tab_text_6">Умовні речення</string>
+
 </resources>

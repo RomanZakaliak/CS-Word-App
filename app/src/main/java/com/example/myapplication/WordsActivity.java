@@ -50,7 +50,6 @@ public class WordsActivity extends AppCompatActivity {
     private TextInputLayout usageExample;
 
     private Toolbar toolbar;
-    private ActionBarDrawerToggle toggle;
 
 
     @Override

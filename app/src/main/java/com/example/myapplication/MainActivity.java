@@ -6,7 +6,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
 import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,11 +42,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void registerInactivityNotification() {
-        Intent notificationIntent = new Intent(getApplicationContext(), InactivityNotification.class);
+        Intent notificationIntent = new Intent(this, InactivityBroadcaster.class);
+        notificationIntent.putExtra("CHANNEL_ID", "INACTIVITY");
+        notificationIntent.putExtra("CHANNEL_NAME", "Inactivity");
+        notificationIntent.putExtra("TITLE", getResources().getString(R.string.notification_inactive_title));
+        notificationIntent.putExtra("MESSAGE", getResources().getString(R.string.notification_inactive_context));
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.setExact(AlarmManager.RTC,System.currentTimeMillis() + delay, pendingIntent);
+        Log.w("Main", alarmManager.toString());
     }
 
 

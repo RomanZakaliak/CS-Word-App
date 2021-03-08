@@ -5,6 +5,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -12,6 +13,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +27,8 @@ import com.squareup.picasso.Picasso;
 
 
 @SuppressWarnings("FieldCanBeLocal")
-public class DashboardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class DashboardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
+        View.OnClickListener{
     private FirebaseAuth mAuth;
 
     private ImageView profileImage;
@@ -36,6 +39,9 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
+
+
+    private CardView cardWords, cardRules, cardNotifications, cardUseful;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +69,17 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_home);
+
+
+        cardWords = (CardView)findViewById(R.id.card_words);
+        cardWords.setOnClickListener(this);
+        cardRules = (CardView)findViewById(R.id.card_rules);
+        cardRules.setOnClickListener(this);
+        cardNotifications = (CardView)findViewById(R.id.card_notifications);
+        cardNotifications.setOnClickListener(this);
+        cardUseful = (CardView)findViewById(R.id.card_useful);
+        cardUseful.setOnClickListener(this);
+
     }
 
 
@@ -98,17 +115,26 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
         switch (menuItem.getItemId()) {
             case R.id.nav_home:
+                navigationView.setCheckedItem(R.id.nav_home);
                 break;
             case R.id.nav_words:
                 Intent intentAddWord = new Intent(DashboardActivity.this, WordsActivity.class);
-                navigationView.setCheckedItem(R.id.nav_home);
                 startActivity(intentAddWord);
                 break;
             case R.id.nav_rules:
-                Toast.makeText(this, "rules", Toast.LENGTH_SHORT).show();
+                Intent intentRules = new Intent(DashboardActivity.this, RulesActivity.class);
+                navigationView.setCheckedItem(R.id.nav_home);
+                startActivity(intentRules);
                 break;
             case R.id.nav_useful:
-                Toast.makeText(this, "useful", Toast.LENGTH_SHORT).show();
+                Intent intentUseful = new Intent(DashboardActivity.this, HelpfulActivity.class);
+                navigationView.setCheckedItem(R.id.nav_home);
+                startActivity(intentUseful);
+                break;
+            case R.id.nav_reminder:
+                Intent intentReminder = new Intent(DashboardActivity.this, ReminderActivity.class);
+                navigationView.setCheckedItem(R.id.nav_home);
+                startActivity(intentReminder);
                 break;
             case R.id.nav_logout:
                 AlertDialog.Builder a_builder = new AlertDialog.Builder(DashboardActivity.this);
@@ -138,5 +164,34 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         return true;
 
     }
+
+
+    @Override
+    public void onClick(View v) {
+
+        Intent intent;
+
+        switch (v.getId()) {
+            case R.id.card_words:
+                Intent intentAddWord = new Intent(DashboardActivity.this, WordsActivity.class);
+                startActivity(intentAddWord);
+                break;
+            case R.id.card_rules:
+                Intent intentRules = new Intent(DashboardActivity.this, RulesActivity.class);
+                startActivity(intentRules);
+                break;
+            case R.id.card_useful:
+                Intent intentUseful = new Intent(DashboardActivity.this, HelpfulActivity.class);
+                startActivity(intentUseful);
+                break;
+            case R.id.card_notifications:
+                Intent intentReminder = new Intent(DashboardActivity.this, ReminderActivity.class);
+                startActivity(intentReminder);
+                break;
+            default:
+                break;
+        }
+    }
+
 }
 
