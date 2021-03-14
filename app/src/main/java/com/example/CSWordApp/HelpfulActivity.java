@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 
+import com.example.CSWordApp.Adapters.MyExpandableListAdapter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
