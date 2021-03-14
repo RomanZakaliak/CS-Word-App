@@ -10,7 +10,6 @@
     android:orientation="vertical">
 
   <ImageView
-      android:id="@+id/logoMain"
       android:layout_width="match_parent"
       android:layout_height="300dp"
       android:layout_marginTop="40dp"
@@ -18,7 +17,6 @@
       app:srcCompat="@drawable/icon" />
 
   <TextView
-      android:id="@+id/headerMain"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="16dp"
@@ -30,7 +28,6 @@
       android:textStyle="bold" />
 
   <TextView
-      android:id="@+id/descriptionMain"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginLeft="60dp"
@@ -63,7 +60,6 @@
 
   <Button
       android:visibility="invisible"
-      android:id="@+id/registrationButtonMain"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginLeft="64dp"
@@ -76,7 +72,6 @@
       android:textStyle="bold" />
 
   <TextView
-      android:id="@+id/bottomLineMain"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:text="@string/bottom_line"

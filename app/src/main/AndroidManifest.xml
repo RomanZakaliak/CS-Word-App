@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.myapplication">
+    package="com.example.CSWordApp">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
@@ -13,26 +13,26 @@
         android:theme="@style/Theme.MyApplication">
 
         <activity
-            android:name=".HelpfulActivity"
-            android:parentActivityName=".DashboardActivity">
+            android:name="com.example.CSWordApp.HelpfulActivity"
+            android:parentActivityName="com.example.CSWordApp.DashboardActivity">
 
         </activity>
 
         <activity
-            android:name=".RulesActivity"
+            android:name="com.example.CSWordApp.RulesActivity"
             android:label="@string/title_activity_rules"
-            android:parentActivityName=".DashboardActivity"
+            android:parentActivityName="com.example.CSWordApp.DashboardActivity"
             android:theme="@style/Theme.MyApplication.NoActionBar" />
         <activity
-            android:name=".ReminderActivity"
-            android:parentActivityName=".DashboardActivity" />
+            android:name="com.example.CSWordApp.ReminderActivity"
+            android:parentActivityName="com.example.CSWordApp.DashboardActivity" />
         <activity
-            android:name=".WordsActivity"
-            android:parentActivityName=".DashboardActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".RegistrationActivity" />
-        <activity android:name=".DashboardActivity" />
-        <activity android:name=".MainActivity">
+            android:name="com.example.CSWordApp.WordsActivity"
+            android:parentActivityName="com.example.CSWordApp.DashboardActivity" />
+        <activity android:name="com.example.CSWordApp.LoginActivity" />
+        <activity android:name="com.example.CSWordApp.RegistrationActivity" />
+        <activity android:name="com.example.CSWordApp.DashboardActivity" />
+        <activity android:name="com.example.CSWordApp.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,8 +40,8 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".InactivityBroadcaster" />
-        <receiver android:name=".RemindBroadcaster" />
+        <receiver android:name="com.example.CSWordApp.InactivityBroadcaster" />
+        <receiver android:name="com.example.CSWordApp.RemindBroadcaster" />
     </application>
 
 </manifest>

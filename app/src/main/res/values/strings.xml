@@ -3,7 +3,6 @@
     <string name="registration_btn">Реєстрація</string>
     <string name="main_btn">Розпочати</string>
     <string name="login_google_btn">Увійти через Google</string>
-    <string name="sign_out">Вийти</string>
 
     <string name="description">Додаток, що стане твоїм найкращим помічником при вивченні слів англійської мови</string>
     <string name="descriptionLogin">Готові вивчати Англійську мову?</string>
@@ -34,9 +33,6 @@
 
     <string name="notification_inactive_title">Тебе довго не було!</string>
     <string name="notification_inactive_context">Можливо, саме час зайнятись англійською? :)</string>
-
-    <string name="remind_title_hint">Заголовок нагадування</string>
-    <string name="remind_message_hint">Повідомлення нагадування</string>
 
     <string name="remind_default_title">Привітик!</string>
     <string name="remind_default_message">Саме час зайнятися вивченням англійської мови!</string>
