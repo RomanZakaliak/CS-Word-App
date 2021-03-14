@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Title" parent="@style/Widget.AppCompat.TextView">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+    <style name="Text" parent="@style/Widget.AppCompat.TextView">
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+</resources>

@@ -9,6 +9,7 @@
     android:padding="10dp">
     
     <TextView
+        style="@style/Title"
         android:id="@+id/word_detail_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,6 +20,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/word_detail"/>
     <TextView
+        style="@style/Text"
         android:id="@+id/word_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,6 +33,7 @@
         app:layout_constraintBottom_toTopOf="@+id/translation_detail_label"/>
 
     <TextView
+        style="@style/Title"
         android:id="@+id/translation_detail_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,6 +45,7 @@
         app:layout_constraintBottom_toTopOf="@+id/translation_detail"/>
 
     <TextView
+        style="@style/Text"
         android:id="@+id/translation_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -53,6 +57,7 @@
         app:layout_constraintBottom_toTopOf="@+id/usage_example_detail_label"/>
 
     <TextView
+        style="@style/Title"
         android:id="@+id/usage_example_detail_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -64,6 +69,7 @@
         app:layout_constraintBottom_toTopOf="@+id/usage_example_detail"/>
 
     <TextView
+        style="@style/Text"
         android:id="@+id/usage_example_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -72,6 +78,17 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usage_example_detail_label"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toTopOf="@+id/close_details_btn"/>
+
+    <Button
+        android:id="@+id/close_details_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OK"
+        android:background="@drawable/custom_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/usage_example_detail"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
