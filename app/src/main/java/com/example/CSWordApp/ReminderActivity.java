@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -58,6 +59,7 @@ public class ReminderActivity extends AppCompatActivity {
         boolean isAlarmUp = runningIntent != null;
 
         reminderSwitch.setChecked(isAlarmUp);
+        setTimePickerEnabled(reminderTimePicker, !isAlarmUp);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
@@ -65,7 +67,7 @@ public class ReminderActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-
+                    setTimePickerEnabled(reminderTimePicker, false);
                     Calendar calendar = setupCalendar();
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(ReminderActivity.this, 0,
                             reminderIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -74,6 +76,7 @@ public class ReminderActivity extends AppCompatActivity {
 
                 } else{
                     if(alarmManager != null){
+                        setTimePickerEnabled(reminderTimePicker, true);
                         PendingIntent pendingIntent = PendingIntent.getBroadcast(ReminderActivity.this, 0,
                                 reminderIntent, PendingIntent.FLAG_CANCEL_CURRENT);
                         alarmManager.cancel(pendingIntent);
@@ -84,6 +87,17 @@ public class ReminderActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void setTimePickerEnabled(ViewGroup timePicker, boolean state){
+        for(int i = 0; i < timePicker.getChildCount(); ++i){
+            View view = timePicker.getChildAt(i);
+            if(view instanceof ViewGroup){
+                setTimePickerEnabled((ViewGroup)view, state);
+            } else{
+                view.setEnabled(state);
+            }
+        }
     }
 
     private void setupToolbarAction(){
