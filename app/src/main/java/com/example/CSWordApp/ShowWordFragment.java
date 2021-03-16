@@ -1,5 +1,6 @@
 package com.example.CSWordApp;
 
+import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
 
@@ -11,9 +12,6 @@ import android.widget.TextView;
 
 @SuppressWarnings("deprecation")
 public class ShowWordFragment extends DialogFragment {
-    String word;
-    String translation;
-    String usageExample;
 
     Button closeFragment;
 
@@ -29,19 +27,19 @@ public class ShowWordFragment extends DialogFragment {
         return f;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        word = getArguments().getString("word");
-        translation = getArguments().getString("translation");
-        usageExample = getArguments().getString("usage_example");
-        setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light_Dialog_NoActionBar_MinWidth);
-    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_show_word, container, false);
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Dialog dialog = super.onCreateDialog(savedInstanceState);
+
+        String word = getArguments().getString("word");
+        String translation = getArguments().getString("translation");
+        String usageExample = getArguments().getString("usage_example");
+
+        View v = View.inflate( dialog.getContext(), R.layout.fragment_show_word, null);
+        dialog.setContentView(v);
+        dialog.getWindow().setBackgroundDrawable(null);
+
         TextView wordDetail = (TextView)v.findViewById(R.id.word_detail);
         TextView translationDetail = (TextView)v.findViewById(R.id.translation_detail);
         TextView usageExampleDetail = (TextView)v.findViewById(R.id.usage_example_detail);
@@ -56,6 +54,6 @@ public class ShowWordFragment extends DialogFragment {
             getFragmentManager().beginTransaction().remove(ShowWordFragment.this).commit();
         });
 
-        return v;
+        return dialog;
     }
 }
