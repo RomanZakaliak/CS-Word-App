@@ -17,6 +17,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.core.view.GestureDetectorCompat;
 
 import com.example.CSWordApp.Adapters.WordsListAdapter;
 import com.example.CSWordApp.Data.Word;
@@ -43,6 +44,8 @@ public class WordsActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference userReference;
 
+    private GestureDetectorCompat swipeListener;
+
     private Button saveWord;
     private TextInputLayout word;
     private TextInputLayout translation;
@@ -68,13 +71,15 @@ public class WordsActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(backArrow);
 
+        swipeListener = new GestureDetectorCompat(this, new SwipeGestureListener(this));
+
         initFirebase();
 
 
         userReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                UpdateWordsList(snapshot);
+                updateWordsList(snapshot);
             }
 
             @Override
@@ -96,7 +101,7 @@ public class WordsActivity extends AppCompatActivity {
         userReference.keepSynced(true);
     }
 
-    private void UpdateWordsList(DataSnapshot snapshot) {
+    private void updateWordsList(DataSnapshot snapshot) {
         GenericTypeIndicator<HashMap<String, Word>> type = new GenericTypeIndicator<HashMap<String, Word>>() {};
         HashMap<String, Word> hashMap = (HashMap<String, Word>) snapshot.getValue(type);
         if( hashMap == null){
@@ -167,6 +172,11 @@ public class WordsActivity extends AppCompatActivity {
         }
         Toast.makeText(this, R.string.save_word_success, Toast.LENGTH_SHORT).show();
 
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return swipeListener.onTouchEvent(event);
     }
 
     @Override

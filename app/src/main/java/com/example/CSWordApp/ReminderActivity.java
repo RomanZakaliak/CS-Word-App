@@ -4,6 +4,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.core.view.GestureDetectorCompat;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -21,6 +22,8 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TimePicker;
 
+import com.example.CSWordApp.Broadcasters.RemindBroadcaster;
+
 import java.util.Calendar;
 
 public class ReminderActivity extends AppCompatActivity {
@@ -31,6 +34,8 @@ public class ReminderActivity extends AppCompatActivity {
     private Toolbar toolbar;
 
     private Switch reminderSwitch;
+
+    private GestureDetectorCompat swipeListener;
 
 
     private final static int SECOND = 1000;
@@ -48,6 +53,8 @@ public class ReminderActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         setupToolbarAction();
+
+        swipeListener = new GestureDetectorCompat(this, new SwipeGestureListener(this));
 
         reminderTimePicker = findViewById(R.id.remind_time_picker);
         reminderTimePicker.setIs24HourView(true);
@@ -87,6 +94,11 @@ public class ReminderActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return swipeListener.onTouchEvent(event);
     }
 
     private void setTimePickerEnabled(ViewGroup timePicker, boolean state){

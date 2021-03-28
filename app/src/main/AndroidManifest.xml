@@ -40,8 +40,8 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name="com.example.CSWordApp.InactivityBroadcaster" />
-        <receiver android:name="com.example.CSWordApp.RemindBroadcaster" />
+        <receiver android:name="com.example.CSWordApp.Broadcasters.InactivityBroadcaster" />
+        <receiver android:name="com.example.CSWordApp.Broadcasters.RemindBroadcaster" />
     </application>
 
 </manifest>

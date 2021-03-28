@@ -1,11 +1,12 @@
-package com.example.CSWordApp;
+package com.example.CSWordApp.Broadcasters;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-public class InactivityBroadcaster extends BroadcastReceiver {
+import com.example.CSWordApp.NotificationProvider;
 
+public class RemindBroadcaster extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String CHANNEL_ID = intent.getStringExtra("CHANNEL_ID");
@@ -15,5 +16,4 @@ public class InactivityBroadcaster extends BroadcastReceiver {
 
         new NotificationProvider(CHANNEL_ID, Title, Message, CHANNEL_NAME, context).showNotification();
     }
-
 }

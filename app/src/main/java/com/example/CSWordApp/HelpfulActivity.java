@@ -4,9 +4,11 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.core.view.GestureDetectorCompat;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 
@@ -32,6 +34,9 @@ public class HelpfulActivity extends AppCompatActivity {
     // HashMap Documentation: https://developer.android.com/reference/java/util/HashMap.html
     // Hashtable Documentation: https://developer.android.com/reference/java/util/Hashtable.html
 
+
+    private GestureDetectorCompat swipeListener;
+
     private Toolbar toolbar;
 
     @Override
@@ -51,6 +56,8 @@ public class HelpfulActivity extends AppCompatActivity {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(backArrow);
+
+        swipeListener = new GestureDetectorCompat(this, new SwipeGestureListener(this));
         //-------------------------------------
 
 
@@ -81,6 +88,11 @@ public class HelpfulActivity extends AppCompatActivity {
 //                return false;
 //            }
 //        });
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return swipeListener.onTouchEvent(event);
     }
 
     /**
