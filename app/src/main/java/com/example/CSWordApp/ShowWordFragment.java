@@ -3,10 +3,7 @@ package com.example.CSWordApp;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
-
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -40,9 +37,9 @@ public class ShowWordFragment extends DialogFragment {
         dialog.setContentView(v);
         dialog.getWindow().setBackgroundDrawable(null);
 
-        TextView wordDetail = (TextView)v.findViewById(R.id.word_detail);
-        TextView translationDetail = (TextView)v.findViewById(R.id.translation_detail);
-        TextView usageExampleDetail = (TextView)v.findViewById(R.id.usage_example_detail);
+        TextView wordDetail = v.findViewById(R.id.word_detail);
+        TextView translationDetail = v.findViewById(R.id.translation_detail);
+        TextView usageExampleDetail = v.findViewById(R.id.usage_example_detail);
 
         closeFragment = v.findViewById(R.id.close_details_btn);
 

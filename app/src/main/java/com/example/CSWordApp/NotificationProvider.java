@@ -20,8 +20,8 @@ public class NotificationProvider {
     private String Title = "CS Word App";
     private String Message = "";
     private String CHANNEL_NAME = "Default";
-    private int notificationId = (int)(Math.random() * (10 - 1 + 1) + 1);
-    private Context context;
+    private final int notificationId = (int)(Math.random() * (10 - 1 + 1) + 1);
+    private final Context context;
 
     public NotificationProvider(String CHANNEL_ID, String Title, String Message, String CHANNEL_NAME, Context context){
         this.CHANNEL_ID = CHANNEL_ID;

@@ -8,16 +8,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.CSWordApp.R;
 
-import java.util.List;
 import java.util.Map;
 
 public class RulesAdapter extends RecyclerView.Adapter<RulesAdapter.ViewHolder> {
-    private Map<String,String> data;
-    private LayoutInflater layoutInflater;
+    private final Map<String,String> data;
+    private final LayoutInflater layoutInflater;
 
     public RulesAdapter(Context context, Map<String,String> data){
         this.layoutInflater = LayoutInflater.from(context);
@@ -45,7 +43,7 @@ public class RulesAdapter extends RecyclerView.Adapter<RulesAdapter.ViewHolder> 
         return data.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder{
         TextView topTextView;
         TextView contentTextView;
 

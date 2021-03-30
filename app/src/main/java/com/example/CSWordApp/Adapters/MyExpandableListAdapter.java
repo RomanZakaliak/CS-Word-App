@@ -19,13 +19,13 @@ import java.util.Map;
 public class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
     // Declare context object
-    private Context mContext;
-    private List<String> mParents;
-    private Map<String, List<String>> mChildrenMap;
+    private final Context mContext;
+    private final List<String> mParents;
+    private final Map<String, List<String>> mChildrenMap;
 
     /**
      * Constructor
-     * @param context
+     * @param context - Target activity context
      * @param parents - List of Parents (parents)
      * @param childrenMap - Map populated with our values and their associations (childrenMap)
      */
@@ -53,7 +53,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     /**
-     * @param groupPosition
+     * @param groupPosition - group index
      * @return - for any specific position, return the group name
      */
     @Override
@@ -62,8 +62,8 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     /**
-     * @param groupPosition
-     * @param childPosition
+     * @param groupPosition - target group index
+     * @param childPosition - target child index
      * @return - the name of the child (cycles through each parent (or group), and each child of each parent
      */
     @Override
@@ -72,7 +72,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     /**
-     * @param groupPosition
+     * @param groupPosition - target group index
      * @return the groupPosition as the ID
      */
     @Override
@@ -103,7 +103,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
      * @param convertView // recycles old views in Adapters to increase performance
      * @param parent
      * @return the actual value
-     */
+     **/
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
 
@@ -113,12 +113,12 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
         // Create the convertView object if it is null
         if(convertView == null) {
             // Inflate the view in our list_parent.xml
-            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(mContext.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.list_parent, null);
         }
 
         // Update the TextView in our convertView (based on the list_parent.xml)
-        TextView parentTextView = (TextView) convertView.findViewById(R.id.list_item_parent);
+        TextView parentTextView = convertView.findViewById(R.id.list_item_parent);
         parentTextView.setText(parentValue);
 
         return convertView;
@@ -128,7 +128,7 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
      * Update and return the value of convertView
      * @param groupPosition
      * @param childPosition
-     * @param isLastChild
+     * @param isLastChild - is target element is last child
      * @param convertView // recycles old views in Adapters to increase performance
      * @param parent
      * @return
@@ -142,12 +142,12 @@ public class MyExpandableListAdapter extends BaseExpandableListAdapter {
         // Create the convertView object if it is null
         if(convertView == null) {
             // Inflate the view in our list_parent.xml
-            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(mContext.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.list_child, null);
         }
 
         // Update the TextView in our convertView (based on the list_child.xml)
-        TextView childTextView = (TextView) convertView.findViewById(R.id.list_item_child);
+        TextView childTextView = convertView.findViewById(R.id.list_item_child);
         childTextView.setText(childValue);
 
         return convertView;

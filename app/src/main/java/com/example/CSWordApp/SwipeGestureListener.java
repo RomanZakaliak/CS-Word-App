@@ -5,7 +5,6 @@ import android.content.Context;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.widget.Toast;
 
 public class SwipeGestureListener extends GestureDetector.SimpleOnGestureListener {
 
@@ -14,6 +13,7 @@ public class SwipeGestureListener extends GestureDetector.SimpleOnGestureListene
     private static final int SWIPE_START_THRESHOLD = 100;
 
     private final Context context;
+
     public SwipeGestureListener(Context context){
 
         this.context = context;

@@ -1,16 +1,16 @@
 package com.example.CSWordApp;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.core.view.GestureDetectorCompat;
-
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.core.view.GestureDetectorCompat;
 
 import com.example.CSWordApp.Adapters.MyExpandableListAdapter;
 
@@ -45,7 +45,7 @@ public class HelpfulActivity extends AppCompatActivity {
         setContentView(R.layout.activity_helpful);
 
         //-------------------------------------
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         //toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_32);
         toolbar.setTitle("Поради та Лайфхаки для тебе");
         setSupportActionBar(toolbar);
@@ -63,7 +63,7 @@ public class HelpfulActivity extends AppCompatActivity {
 
 
         // Get the expandablelistview from our XML layout file
-        expandableListView = (ExpandableListView) findViewById(R.id.list_view_expandable);
+        expandableListView = findViewById(R.id.list_view_expandable);
 
         // Populate our data and provide associations
         fillData();
@@ -74,7 +74,7 @@ public class HelpfulActivity extends AppCompatActivity {
          *  - List of Parents (parents)
          *  - Map populated with our values and their associations (childrenMap)
          *  (requires a constructor which accepts these values)
-         */
+         **/
         expandableListAdapter = new MyExpandableListAdapter(this, parents, childrenMap);
 
         // Set the value in the ExpandableListView

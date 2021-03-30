@@ -38,12 +38,5 @@
     <string name="remind_default_message">Саме час зайнятися вивченням англійської мови!</string>
 
     <string name="title_activity_rules">RulesActivity</string>
-    <string name="tab_text_1">Арти\\кль</string>
-    <string name="tab_text_2">Іменник</string>
-    <string name="tab_text_3">Прикметник</string>
-    <string name="tab_text_4">Прислівник</string>
-    <string name="tab_text_5">Дієслово</string>
-    <string name="tab_text_6">Умовні речення</string>
-
 
 </resources>

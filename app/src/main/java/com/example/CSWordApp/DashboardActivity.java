@@ -1,5 +1,13 @@
 package com.example.CSWordApp;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
@@ -9,13 +17,6 @@ import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.navigation.NavigationView;
@@ -24,9 +25,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 
-@SuppressWarnings("FieldCanBeLocal")
 public class DashboardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         View.OnClickListener{
+
+    private static final String TAG = "DashboardActivity";
+
     private FirebaseAuth mAuth;
 
     private ImageView profileImage;
@@ -38,6 +41,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     private NavigationView navigationView;
     private Toolbar toolbar;
 
+    private FirebaseUser currentUser = null;
 
     private CardView cardWords, cardRules, cardNotifications, cardUseful;
 
@@ -47,9 +51,15 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         setContentView(R.layout.activity_dashboard);
 
         mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        currentUser = mAuth.getCurrentUser();
 
-        showUserData(currentUser);
+
+        try{
+            showUserData(currentUser);
+        } catch (Exception ex){
+            Log.w(TAG, ex.getMessage(), ex);
+        }
+
 
         //------------------Hooks------------------
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -69,13 +79,13 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         navigationView.setCheckedItem(R.id.nav_home);
 
 
-        cardWords = (CardView)findViewById(R.id.card_words);
+        cardWords = findViewById(R.id.card_words);
         cardWords.setOnClickListener(this);
-        cardRules = (CardView)findViewById(R.id.card_rules);
+        cardRules = findViewById(R.id.card_rules);
         cardRules.setOnClickListener(this);
-        cardNotifications = (CardView)findViewById(R.id.card_notifications);
+        cardNotifications = findViewById(R.id.card_notifications);
         cardNotifications.setOnClickListener(this);
-        cardUseful = (CardView)findViewById(R.id.card_useful);
+        cardUseful = findViewById(R.id.card_useful);
         cardUseful.setOnClickListener(this);
 
     }
@@ -84,13 +94,13 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     private void showUserData(FirebaseUser currentUser){
         navigationView = findViewById(R.id.nav_view);
 
-        nameTxt = (TextView)navigationView.getHeaderView(0).findViewById(R.id.name_txt);
+        nameTxt = navigationView.getHeaderView(0).findViewById(R.id.name_txt);
         nameTxt.setText(currentUser.getDisplayName());
 
-        emailTxt = (TextView)navigationView.getHeaderView(0).findViewById(R.id.email_txt);
+        emailTxt = navigationView.getHeaderView(0).findViewById(R.id.email_txt);
         emailTxt.setText(currentUser.getEmail());
 
-        profileImage = (ImageView)navigationView.getHeaderView(0).findViewById(R.id.profile_image);
+        profileImage = navigationView.getHeaderView(0).findViewById(R.id.profile_image);
         Picasso.get().load(currentUser.getPhotoUrl()).into(profileImage);
     }
 
@@ -108,9 +118,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
-        Intent intent;
-
         switch (menuItem.getItemId()) {
             case R.id.nav_home:
                 navigationView.setCheckedItem(R.id.nav_home);
@@ -147,7 +154,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
                             Intent intent1 = new Intent(DashboardActivity.this, LoginActivity.class);
                             startActivity(intent1);
-                            finish();;
+                            finish();
                         })
                         .setNegativeButton("Ні", (dialog, which) -> {
                             navigationView.setCheckedItem(R.id.nav_home);
@@ -166,9 +173,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
     @Override
     public void onClick(View v) {
-
-        Intent intent;
-
         switch (v.getId()) {
             case R.id.card_words:
                 Intent intentAddWord = new Intent(DashboardActivity.this, WordsActivity.class);
