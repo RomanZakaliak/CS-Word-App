@@ -1,3 +1,7 @@
-# CS-Word-App
+# CS Word App
 
-A small android app developed by students
+This is small android app for ukrainian people with goal to self learn english. It's developed by students of group CS.
+
+## Requirements
+This app using Google Firebase Authentication and Realtime DB.
+
