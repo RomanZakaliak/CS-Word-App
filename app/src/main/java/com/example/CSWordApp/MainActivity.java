@@ -31,15 +31,17 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.MainTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         registerInactivityNotification();
 
-        tryLogin();
-
         database = FirebaseDatabase.getInstance(getResources().getString(R.string.realtime_db_reference));
         database.setPersistenceEnabled(true);
+
+        tryLogin();
+
     }
 
     private void registerInactivityNotification() {
