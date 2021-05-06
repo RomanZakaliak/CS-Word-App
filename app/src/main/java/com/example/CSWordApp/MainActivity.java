@@ -1,7 +1,5 @@
 package com.example.CSWordApp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -9,6 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.CSWordApp.Broadcasters.InactivityBroadcaster;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
@@ -25,20 +26,22 @@ public class MainActivity extends AppCompatActivity {
 
     private final static int delay = 2 * DAY;
 
-    private Button btnLogin, btnRegistration;
+    private Button btnLogin;//, btnRegistration;
     private FirebaseAuth  mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.MainTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         registerInactivityNotification();
 
-        tryLogin();
-
         database = FirebaseDatabase.getInstance(getResources().getString(R.string.realtime_db_reference));
         database.setPersistenceEnabled(true);
+
+        tryLogin();
+
     }
 
     private void registerInactivityNotification() {
@@ -69,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addListenerOnButton() {
-        btnLogin = (Button)findViewById(R.id.loginButtonMain);
+        btnLogin = findViewById(R.id.loginButtonMain);
         //btnRegistration = (Button)findViewById(R.id.registrationButtonMain);
 
         btnLogin.setOnClickListener(

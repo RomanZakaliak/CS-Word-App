@@ -13,26 +13,23 @@
         android:theme="@style/Theme.MyApplication">
 
         <activity
-            android:name="com.example.CSWordApp.HelpfulActivity"
-            android:parentActivityName="com.example.CSWordApp.DashboardActivity">
-
-        </activity>
-
+            android:name=".HelpfulActivity"
+            android:parentActivityName=".DashboardActivity"/>
         <activity
-            android:name="com.example.CSWordApp.RulesActivity"
+            android:name=".RulesActivity"
             android:label="@string/title_activity_rules"
-            android:parentActivityName="com.example.CSWordApp.DashboardActivity"
+            android:parentActivityName=".DashboardActivity"
             android:theme="@style/Theme.MyApplication.NoActionBar" />
         <activity
-            android:name="com.example.CSWordApp.ReminderActivity"
-            android:parentActivityName="com.example.CSWordApp.DashboardActivity" />
+            android:name=".ReminderActivity"
+            android:parentActivityName=".DashboardActivity" />
         <activity
-            android:name="com.example.CSWordApp.WordsActivity"
-            android:parentActivityName="com.example.CSWordApp.DashboardActivity" />
-        <activity android:name="com.example.CSWordApp.LoginActivity" />
-        <activity android:name="com.example.CSWordApp.RegistrationActivity" />
-        <activity android:name="com.example.CSWordApp.DashboardActivity" />
-        <activity android:name="com.example.CSWordApp.MainActivity">
+            android:name=".WordsActivity"
+            android:parentActivityName=".DashboardActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".RegistrationActivity" />
+        <activity android:name=".DashboardActivity" />
+        <activity android:name=".MainActivity" android:theme="@style/Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,8 +37,8 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name="com.example.CSWordApp.InactivityBroadcaster" />
-        <receiver android:name="com.example.CSWordApp.RemindBroadcaster" />
+        <receiver android:name=".Broadcasters.InactivityBroadcaster" />
+        <receiver android:name=".Broadcasters.RemindBroadcaster" />
     </application>
 
 </manifest>

@@ -1,7 +1,5 @@
 package com.example.CSWordApp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +9,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class RegistrationActivity extends AppCompatActivity {
@@ -26,18 +26,16 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private void addListenerOnButton() {
-        btnRegistration = (Button)findViewById(R.id.registrationButton);
+        btnRegistration = findViewById(R.id.registrationButton);
 
-        btnRegistration.setOnClickListener(
-                v -> {
+        btnRegistration.setOnClickListener(v -> {
                     Intent intent = new Intent(RegistrationActivity.this, DashboardActivity.class);
                     startActivity(intent);
                 }
         );
 
-        btnTextLogin = (TextView) findViewById(R.id.loginRegistration);
-        btnTextLogin.setOnClickListener(
-                v -> {
+        btnTextLogin = findViewById(R.id.loginRegistration);
+        btnTextLogin.setOnClickListener(v -> {
                     Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
                     startActivity(intent);
                 }
@@ -51,10 +49,10 @@ public class RegistrationActivity extends AppCompatActivity {
 
         if (view instanceof EditText) {
             View w = getCurrentFocus();
-            int scrcoords[] = new int[2];
-            w.getLocationOnScreen(scrcoords);
-            float x = event.getRawX() + w.getLeft() - scrcoords[0];
-            float y = event.getRawY() + w.getTop() - scrcoords[1];
+            int[] scrCoordinates = new int[2];
+            w.getLocationOnScreen(scrCoordinates);
+            float x = event.getRawX() + w.getLeft() - scrCoordinates[0];
+            float y = event.getRawY() + w.getTop() - scrCoordinates[1];
 
             if (event.getAction() == MotionEvent.ACTION_UP
                     && (x < w.getLeft() || x >= w.getRight()

@@ -1,29 +1,23 @@
 package com.example.CSWordApp;
 
 import android.content.res.Resources;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.widget.ImageView;
+import android.view.MotionEvent;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.core.view.GestureDetectorCompat;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.CSWordApp.Adapters.RulesAdapter;
 import com.google.android.material.tabs.TabLayout;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class RulesActivity extends AppCompatActivity {
 
@@ -31,13 +25,15 @@ public class RulesActivity extends AppCompatActivity {
     private ViewPager2 viewPager;
     private TabLayout tabLayout;
 
+    private GestureDetectorCompat swipeListener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rules);
 
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Правила");
         setSupportActionBar(toolbar);
 
@@ -47,6 +43,8 @@ public class RulesActivity extends AppCompatActivity {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(backArrow);
+
+        swipeListener = new GestureDetectorCompat(this, new SwipeGestureListener(this));
 
         Map<String, String> rulesTextContent= getRulesContent();
         viewPager = this.findViewById(R.id.view_pager);
@@ -74,4 +72,9 @@ public class RulesActivity extends AppCompatActivity {
         return rulesContent;
     }
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        super.dispatchTouchEvent(ev);
+        return swipeListener.onTouchEvent(ev);
+    }
 }

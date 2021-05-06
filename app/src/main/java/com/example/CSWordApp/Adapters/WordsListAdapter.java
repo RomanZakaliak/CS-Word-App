@@ -26,7 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import java.util.List;
 
 public class WordsListAdapter extends ArrayAdapter<Word> {
-    private LayoutInflater inflater;
+    private final LayoutInflater inflater;
     private final int layout;
     private final List<Word> words;
     private final Context context;
@@ -108,9 +108,9 @@ public class WordsListAdapter extends ArrayAdapter<Word> {
         final TextView titleView, subtitleView;
 
         ViewHolder(View view){
-            titleView = (TextView) view.findViewById(R.id.word_title);
-            subtitleView = (TextView) view.findViewById(R.id.word_subtitle);
-            itemMenuBtn = (ImageButton) view.findViewById(R.id.btn_show_popup_menu);
+            titleView = view.findViewById(R.id.word_title);
+            subtitleView = view.findViewById(R.id.word_subtitle);
+            itemMenuBtn = view.findViewById(R.id.btn_show_popup_menu);
         }
     }
 }

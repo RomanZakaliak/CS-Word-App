@@ -29,7 +29,7 @@
         android:layout_marginEnd="5dp"
         android:paddingStart="5dp"
         android:text="Sample Title"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:maxLines="1"
         app:layout_constraintBottom_toTopOf="@+id/word_subtitle"
         app:layout_constraintRight_toLeftOf="@+id/btn_show_popup_menu"

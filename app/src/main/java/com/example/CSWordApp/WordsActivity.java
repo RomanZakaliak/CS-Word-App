@@ -17,6 +17,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.core.view.GestureDetectorCompat;
 
 import com.example.CSWordApp.Adapters.WordsListAdapter;
 import com.example.CSWordApp.Data.Word;
@@ -43,6 +44,8 @@ public class WordsActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference userReference;
 
+    private GestureDetectorCompat swipeListener;
+
     private Button saveWord;
     private TextInputLayout word;
     private TextInputLayout translation;
@@ -56,7 +59,7 @@ public class WordsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_words);
 
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         //toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_32);
         toolbar.setTitle("Мої слова");
         setSupportActionBar(toolbar);
@@ -68,13 +71,15 @@ public class WordsActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(backArrow);
 
+        swipeListener = new GestureDetectorCompat(this, new SwipeGestureListener(this));
+
         initFirebase();
 
 
         userReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                UpdateWordsList(snapshot);
+                updateWordsList(snapshot);
             }
 
             @Override
@@ -92,21 +97,21 @@ public class WordsActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         database = FirebaseDatabase.getInstance(getResources().getString(R.string.realtime_db_reference));
-        userReference = database.getReference("users").child(currentUser.getUid().toString()).child("words");
+        userReference = database.getReference("users").child(currentUser.getUid()).child("words");
         userReference.keepSynced(true);
     }
 
-    private void UpdateWordsList(DataSnapshot snapshot) {
+    private void updateWordsList(DataSnapshot snapshot) {
         GenericTypeIndicator<HashMap<String, Word>> type = new GenericTypeIndicator<HashMap<String, Word>>() {};
-        HashMap<String, Word> hashMap = (HashMap<String, Word>) snapshot.getValue(type);
+        HashMap<String, Word> hashMap = snapshot.getValue(type);
         if( hashMap == null){
             return;
         } else{
-            ArrayList<Word> wordEtities = new ArrayList<>(hashMap.values());
+            ArrayList<Word> wordEntities = new ArrayList<>(hashMap.values());
 
             ListView wordsList = findViewById(R.id.words_list);
 
-            WordsListAdapter wordsListAdapter = new WordsListAdapter(this, R.layout.word_item_layout, wordEtities, userReference);
+            WordsListAdapter wordsListAdapter = new WordsListAdapter(this, R.layout.word_item_layout, wordEntities, userReference);
             wordsList.setAdapter(wordsListAdapter);
 
         }
@@ -136,23 +141,21 @@ public class WordsActivity extends AppCompatActivity {
             wordData.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(snapshot != null){
-                        Word thisWord = snapshot.getValue(Word.class);
+                    Word thisWord = snapshot.getValue(Word.class);
 
-                        if( thisWord == null){
-                            userReference.child(wordEntity.getWord()).setValue(wordEntity);
-                            return;
-                        }
+                    if( thisWord == null){
+                        userReference.child(wordEntity.getWord()).setValue(wordEntity);
+                        return;
+                    }
 
-                        if(!thisWord.getTranslations().contains(wordEntity.getTranslations())){
-                            String updatedTranslation = thisWord.getTranslations() +"\n" +wordEntity.getTranslations();
-                            userReference.child(wordEntity.getWord()).child("translations").setValue(updatedTranslation);
-                        }
+                    if(!thisWord.getTranslations().contains(wordEntity.getTranslations())){
+                        String updatedTranslation = thisWord.getTranslations() +"\n" +wordEntity.getTranslations();
+                        userReference.child(wordEntity.getWord()).child("translations").setValue(updatedTranslation);
+                    }
 
-                        if(!thisWord.getUsageExamples().contains(wordEntity.getUsageExamples()) || thisWord.getUsageExamples().isEmpty()){
-                            String updatedUsageExamples = wordEntity.getUsageExamples() +"\n" + thisWord.getUsageExamples();
-                            userReference.child(wordEntity.getWord()).child("usageExamples").setValue(updatedUsageExamples);
-                        }
+                    if(!thisWord.getUsageExamples().contains(wordEntity.getUsageExamples()) || thisWord.getUsageExamples().isEmpty()){
+                        String updatedUsageExamples = wordEntity.getUsageExamples() +"\n" + thisWord.getUsageExamples();
+                        userReference.child(wordEntity.getWord()).child("usageExamples").setValue(updatedUsageExamples);
                     }
                 }
 
@@ -170,16 +173,21 @@ public class WordsActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return swipeListener.onTouchEvent(event);
+    }
+
+    @Override
     public boolean dispatchTouchEvent(MotionEvent event) {    //закрити віртуальну клаву, якщо клік за межі поля вводу
         View view = getCurrentFocus();
         boolean ret = super.dispatchTouchEvent(event);
 
         if (view instanceof EditText) {
             View w = getCurrentFocus();
-            int scrcoords[] = new int[2];
-            w.getLocationOnScreen(scrcoords);
-            float x = event.getRawX() + w.getLeft() - scrcoords[0];
-            float y = event.getRawY() + w.getTop() - scrcoords[1];
+            int[] scrCoordinates = new int[2];
+            w.getLocationOnScreen(scrCoordinates);
+            float x = event.getRawX() + w.getLeft() - scrCoordinates[0];
+            float y = event.getRawY() + w.getTop() - scrCoordinates[1];
 
             if (event.getAction() == MotionEvent.ACTION_UP
                     && (x < w.getLeft() || x >= w.getRight()

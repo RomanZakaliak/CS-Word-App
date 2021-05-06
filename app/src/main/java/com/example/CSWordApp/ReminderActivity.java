@@ -1,10 +1,5 @@
 package com.example.CSWordApp;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.res.ResourcesCompat;
-
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -21,6 +16,14 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TimePicker;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.core.view.GestureDetectorCompat;
+
+import com.example.CSWordApp.Broadcasters.RemindBroadcaster;
+
 import java.util.Calendar;
 
 public class ReminderActivity extends AppCompatActivity {
@@ -32,13 +35,15 @@ public class ReminderActivity extends AppCompatActivity {
 
     private Switch reminderSwitch;
 
+    private GestureDetectorCompat swipeListener;
+
 
     private final static int SECOND = 1000;
     private final static int MINUTE = 60 * SECOND;
     private final static int HOUR = 60 * MINUTE;
     private final static int DAY = 24 * HOUR;
 
-    private final static int delay =  30 * SECOND ;
+    private final static long delay =  30 * DAY ;
 
 
     @Override
@@ -48,6 +53,8 @@ public class ReminderActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         setupToolbarAction();
+
+        swipeListener = new GestureDetectorCompat(this, new SwipeGestureListener(this));
 
         reminderTimePicker = findViewById(R.id.remind_time_picker);
         reminderTimePicker.setIs24HourView(true);
@@ -87,6 +94,11 @@ public class ReminderActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return swipeListener.onTouchEvent(event);
     }
 
     private void setTimePickerEnabled(ViewGroup timePicker, boolean state){
@@ -137,10 +149,10 @@ public class ReminderActivity extends AppCompatActivity {
 
         if (view instanceof EditText) {
             View w = getCurrentFocus();
-            int scrcoords[] = new int[2];
-            w.getLocationOnScreen(scrcoords);
-            float x = event.getRawX() + w.getLeft() - scrcoords[0];
-            float y = event.getRawY() + w.getTop() - scrcoords[1];
+            int[] scrCoordinates = new int[2];
+            w.getLocationOnScreen(scrCoordinates);
+            float x = event.getRawX() + w.getLeft() - scrCoordinates[0];
+            float y = event.getRawY() + w.getTop() - scrCoordinates[1];
 
             if (event.getAction() == MotionEvent.ACTION_UP
                     && (x < w.getLeft() || x >= w.getRight()
